@@ -1,75 +1,66 @@
-ITERATORI GRAFI
-
-Iteratore in Ampiezza
+BreadthIterator
+{
+	Queue Q = NIL
+	int idx = 0
+}
 
 BreadthIterator (G)
 {
-	//inizializza array colori
+	if (G.Size() == 0)
+	{
+		throw exception;
+	}
 
 	color = Init (G) 
 
-	//aggiunge il primo elemento del vettore dei vertici in coda
-
-	v = &V[0];
-	Q.Enqueue(v)
-	color[v] = gray;
+	s = V[0];
+	Q.Enqueue(s)
+	color[s] = gray;
 	
-	idx = 1; //indice per permettere di esplorare in tempo lineare
+	idx = 1;
 }
 
-/////////////////////
-
 Operator++ ()
-{
-	if (G.Size() == 0)
-	{
-		//grafo vuoto, iteratore terminato 
-		throw exception;
-	}
-	
-	//controllo se la coda è vuota
-	
+{	
 	if (!Q.Empty())
 	{
-		v = Q.HeadNDequeue()
+		u = Q.HeadNDequeue()
 		
-		Adj[v].Traverse (
-		[] (const Vertice& w)
+		for each v in Adj[u]
 		{
-			if (color[w] == white) 
+			if (color[v] == white) 
 			{
-				Q.Enqueue(w);
-				color[w] = gray;
+				Q.Enqueue(v);
+				color[v] = gray;
 			}
 		}
-		);
 		
-		if (!Q.Empty)
-		{
-			color[Q.Head()] = black; 
-		}
+		color[u] = black
 	}		
 	
-	else if (i < N)
+	//Se la coda è vuota ma l'iteratore non è terminato
+	else if (!Terminated(G))
 	{
-		//non so dove sará il prossimo vertice
-		//idx è la posizione da cui potenzialmente potrebbe esserci una nuova radice di ricerca
-		for (j = idx to N-1) //N è il numero di vertici
+		//devo scegliere la prossima sorgente dal vettore dei vertici
+		//si parte da idx
+		for (i = idx; i < |V|; i++)
 		{
-			w = &V[j];
-			if (color[w] == white) 
+			v = V[i];
+			if (color[v] == white) 
 			{
-				Q.Enqueue(w);
-				color[w] = gray;
-				j++; //se interrompo subito dopo il for non incrementa piú j, ma devo farlo comunque
-				break; //quando ho trovato una radice di ricerca posso uscire dal for
+				Q.Enqueue(v);
+				color[v] = gray;
+				
+				//quando ho trovato una radice di ricerca posso uscire dal for
+				break; 
 			}
 		}	
 		
-		idx = j; //j è la cella da cui potenzialmente far ripartire la ricerca
+		idx = i+1; //la prossima ricerca partirá da idx
 	}
-	
-	else //La coda è vuota e ho raggiunto N, l'iteratore è terminato
+
+	//La coda è vuota e l'iteratore è terminato
+	else 
 	{
 		throw exception;
 	}
@@ -78,5 +69,5 @@ Operator++ ()
 
 Terminated(G)
 {
-	return idx == G.Size();
+	return idx >= G.Size();
 }
