@@ -41,7 +41,7 @@ StaccaMin (T, Pred)
 	
 	if (!isNil(T->Sx))
 		min = StaccaMin (T->Sx, T)
-		BilanciaDx (T)
+		BilanciaSx (T)
 		
 	else 
 		if (!isNil(Pred))
