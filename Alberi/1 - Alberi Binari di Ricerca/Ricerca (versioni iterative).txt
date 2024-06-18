@@ -1,0 +1,50 @@
+Search (T, k)
+	curr = T
+	while (curr != NIL)
+		if (curr->key == k)
+			return true
+		
+		else if (curr->key < k)
+			curr = curr->Sx
+		
+		else if (curr->key > k)
+			curr = curr->Dx
+	
+	return false
+
+/* ********************************** */
+	
+Min (T)
+	if (T == NIL)
+		return NIL
+
+	curr = T
+
+	while (curr->Sx != NIL)
+		curr = curr->Sx 
+
+	return curr
+
+
+/* ********************************** */
+		
+Max (T)
+	if (T == NIL)
+		return NIL
+
+	curr = T
+
+	while (curr->Dx != NIL)
+		curr = curr->Dx 
+
+	return curr
+
+/* ********************************** */
+	
+Predecessor (T, k)
+	
+
+/* ********************************** */
+
+Successor (T, k)
+	

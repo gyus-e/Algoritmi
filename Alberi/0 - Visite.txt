@@ -1,0 +1,29 @@
+DFS (T)
+	if (T != NIL)
+		Visita (T) // in preorder
+		
+		DFS (T->Sx) 
+		
+		Visita (T) // in order
+		
+		DFS (T->Dx)
+		
+		Visita (T) // in postorder
+		
+BFS (T)
+	if (T != NIL)
+		Q = Enqueue (Q, T)
+	
+	while (Q != NIL)
+		curr = Head (Q)
+		
+		Visita (curr)
+		
+		if (curr->Sx != NIL)
+			Q = Enqueue (Q, curr->Sx)
+		
+		if (curr->Dx != NIL)
+			Q = Enqueue (Q, curr->Dx)
+		
+		Q = Dequeue (Q)
+	

@@ -1,0 +1,48 @@
+BilanciaSx (T)
+	if (T->Sx->h - T->Dx->h > 1)
+		S = T->Sx
+		if (S->Sx->h >= S->Dx->h)
+			T = RotazioneSx (T)
+		else 
+			S = RotazioneDx (S)
+			T = RotazioneSx (T)
+	else
+		T->h = 1 + max (T->Sx->h, T->Dx->h)
+		
+/* ********************************** */
+
+BilanciaDx (T)
+	if (T->Dx->h - T->Sx->h > 1)
+		D = T->Dx 
+		if (D->Dx->h >= D->Sx->h)
+			T = RotazioneDx (T)
+		else 
+			D = RotazioneSx (D)
+			T = RotazioneDx (T)
+	else
+		T->h = 1 + max (T->Sx->h, T->Dx->h)
+
+/* ********************************** */
+
+RotazioneSx (T)
+	S = T->Sx 
+	T->Sx = S->Dx
+	S->Dx = T
+	
+	T->h = 1 + max (T->Sx->h, T->Dx->h)
+	S->h = 1 + max (S->Sx->h, S->Dx->h)
+	
+	return S
+	
+/* ********************************** */
+
+RotazioneDx (T)
+	D = T->Dx 
+	T->Dx = D->Sx 
+	D->Sx = T 
+	
+	T->h = 1 + max (T->Sx->h, T->Dx->h)
+	D->h = 1 + max (D->Sx->h, D->Dx->h)
+	
+	return D
+	

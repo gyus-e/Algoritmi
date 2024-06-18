@@ -1,0 +1,46 @@
+Delete (T, k)
+	if (T != NIL)
+		if (T->key == k)
+			DeleteRoot (T)
+
+		else if (T->key < k)
+			Delete (T->Sx, k)
+		
+		else if (T->key > k)
+			Delete (T->Dx, k)
+			
+/* ********************************** */
+		
+DeleteRoot (T)
+	curr = T 
+	
+	if (T->Sx == NIL)
+		T = T->Dx 
+		
+	else if (T->Dx == NIL)
+		T = T->Sx 
+	
+	else 
+		curr = StaccaMin (T, T->Dx)
+		T->key = curr->key
+		
+	delete curr 
+	
+/* ********************************** */
+
+StaccaMin (Pred, T)
+	min = T
+	
+	if (T != NIL)
+	
+		if (T->Sx != NIL)
+			min = StaccaMin (T, T->Sx)
+		
+		else 
+			if (Pred != NIL)
+				if (min == Pred->Sx)
+					Pred->Sx = min->Dx 
+				else if (min == Pred->Dx)
+					Pred->Dx = min->Dx 
+		
+	return min

@@ -1,0 +1,120 @@
+Delete (T, k)
+	if (isNil(T))
+		return
+	if (T->key == k)
+		DeleteRoot (T)
+	else if (T->key > k)
+		Delete (T->Sx, k)
+		BilanciaSx (T)
+	else if (T->key < k)
+		Delete (T->Dx, k)
+		BilanciaDx (T)
+		
+/* **************************** */
+
+DeleteRoot (T)
+	toDelete = T 
+	
+	if (isNil(T->Dx))
+		if (T->color == black)
+			PropagateBlack(T->Sx)
+			
+		T = T->Sx
+	
+	else if (isNil(T->Sx))
+		if (T->color == black)
+			PropagateBlack(T->Dx)
+		
+		T = T->Dx 
+	
+	else 
+		toDelete = StaccaMin (T->Dx, T)
+		T->key = toDelete->key 
+		BilanciaDx (T)
+	
+	delete toDelete
+
+/* **************************** */
+
+StaccaMin (T, Pred)
+	min = T
+	
+	if (!isNil(T->Sx))
+		min = StaccaMin (T->Sx, T)
+		BilanciaDx (T)
+		
+	else 
+		if (!isNil(Pred))
+			if (min == Pred->Sx)
+				Pred->Sx = min->Dx 
+			else if (min == Pred->Dx)
+				Pred->Dx = min->Dx
+		
+		if (min->color == black)
+			PropagateBlack(min->Dx)
+			BilanciaDx (min)
+	
+	return min
+
+/* **************************** */
+
+PropagateBlack (T)
+	if (T->color == red)
+		T->color == black 
+	else 
+		T->color == doubleBlack
+
+/* **************************** */
+
+BilanciaSx (T)
+	switch (ViolazioneSx (T->Sx, T->Dx))
+		case 1: caso1Sx(T)
+		case 2: caso2Sx(T)
+		case 3: caso3Sx(T)
+		case 4: caso4Sx(T)
+
+/* **************************** */
+
+ViolazioneSx (S, D)
+	if (S->color == doubleBlack)
+		
+		if (D->color == red)
+			return 1
+			
+		else if (D->Dx->color == red)
+			return 2
+			
+		else if (D->Sx->color == black)
+			return 3
+			
+		else if (D->Sx->color == red)
+			return 4
+		
+	else 
+		return 0
+
+/* **************************** */
+
+Caso1Sx (T)
+	RotazioneDx (T)
+	T->color = black 
+	T->Sx->color = red
+	BilanciaSx (T->Sx)
+
+Caso2Sx (T)
+	RotazioneSx (T)
+	T->Dx->color = black
+	T->color = T->Sx->color 
+	T->Sx->color = black 
+	T->Sx->Sx->color = black
+
+Caso3Sx (T)
+	PropagateBlack (T)
+	T->Sx->color = black
+	T->Dx->color = red
+	
+Caso4Sx (T)
+	T->Dx = RotazioneSx (T->Dx)
+	T->Dx->color = black 
+	T->Dx->Dx->color = red 
+	Caso2Sx(T)

@@ -1,0 +1,48 @@
+Delete (T, k)
+	if (T != NIL)
+		if (T->key == k)
+			DeleteRoot (T)
+
+		else if (T->key < k)
+			Delete (T->Sx, k)
+			BilanciaDx (T)
+		
+		else if (T->key > k)
+			Delete (T->Dx, k)
+			BilanciaSx (T)
+			
+/* ********************************** */
+		
+DeleteRoot (T)
+	toDelete = T 
+	
+	if (T->Dx == NIL)
+		T = T->Sx 
+		
+	else if (T->Sx == NIL)
+		T = T->Dx 
+	
+	else 
+		toDelete = StaccaMin (T->Dx, T)
+		T->key = toDelete->key
+		BilanciaDx (T)
+		
+	delete toDelete 
+	
+/* ********************************** */
+	
+StaccaMin (T, Pred)
+	min = T
+	
+	if (T->Sx != NIL)
+		min = StaccaMin (T->Sx, T)
+		BilanciaSx (T)
+	
+	else 
+		if (Pred != NIL)
+			if (min == Pred->Sx)
+				Pred->Sx = min->Dx 
+			else if (min == Pred->Dx)
+				Pred->Dx = min->Dx 
+		
+	return min

@@ -1,0 +1,21 @@
+Insert (T, k)
+	if (T == NIL)
+		T = NewNode (k)
+		
+	else if (T->key > k)
+		Insert (T->Sx, k)
+		BilanciaSx (T)
+	
+	else if (T->key < k)
+		Insert (T->Dx, k)
+		BilanciaDx (T)
+		
+/* ********************************** */
+
+NewNode (k)
+	T->key = k 
+	T->Sx = NIL
+	T->Dx = NIL 
+	T->h = 0
+	return T
+	

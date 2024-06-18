@@ -1,0 +1,82 @@
+ITERATORI GRAFI
+
+Iteratore in Ampiezza
+
+BreadthIterator (G)
+{
+	//inizializza array colori
+
+	color = Init (G) 
+
+	//aggiunge il primo elemento del vettore dei vertici in coda
+
+	v = &V[0];
+	Q.Enqueue(v)
+	color[v] = gray;
+	
+	idx = 1; //indice per permettere di esplorare in tempo lineare
+}
+
+/////////////////////
+
+Operator++ ()
+{
+	if (G.Size() == 0)
+	{
+		//grafo vuoto, iteratore terminato 
+		throw exception;
+	}
+	
+	//controllo se la coda è vuota
+	
+	if (!Q.Empty())
+	{
+		v = Q.HeadNDequeue()
+		
+		Adj[v].Traverse (
+		[] (const Vertice& w)
+		{
+			if (color[w] == white) 
+			{
+				Q.Enqueue(w);
+				color[w] = gray;
+			}
+		}
+		);
+		
+		if (!Q.Empty)
+		{
+			color[Q.Head()] = black; 
+		}
+	}		
+	
+	else if (i < N)
+	{
+		//non so dove sará il prossimo vertice
+		//idx è la posizione da cui potenzialmente potrebbe esserci una nuova radice di ricerca
+		for (j = idx to N-1) //N è il numero di vertici
+		{
+			w = &V[j];
+			if (color[w] == white) 
+			{
+				Q.Enqueue(w);
+				color[w] = gray;
+				j++; //se interrompo subito dopo il for non incrementa piú j, ma devo farlo comunque
+				break; //quando ho trovato una radice di ricerca posso uscire dal for
+			}
+		}	
+		
+		idx = j; //j è la cella da cui potenzialmente far ripartire la ricerca
+	}
+	
+	else //La coda è vuota e ho raggiunto N, l'iteratore è terminato
+	{
+		throw exception;
+	}
+	
+}
+
+Terminated(G)
+{
+	return idx == G.Size();
+}

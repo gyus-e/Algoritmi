@@ -1,0 +1,77 @@
+Init (G)
+	for each v in V
+		color[v] = bianco 
+	return color;
+
+/* ********************************* */
+
+DFS (G)
+	color [] = Init (G)
+	for each v in V
+		if color[v] == bianco then
+			DFS_visit (G,v)
+			
+DFS_visit (G,s)
+	Visita (s) //in preorder, dopo essere entrato
+	color[s] = grigio
+	
+	for each v in Adj[s]
+		
+		Visita (v) //in preorder, prima di entrare
+		
+		if color[v] == bianco then 
+			DFS_visit (G,v)
+			
+		Visita (v) //in postorder, dopo essere uscito
+	
+	color[s] = nero
+	Visita (s) //in postorder, prima di uscire
+
+
+//Esempio di visita: verifica se esistono cicli
+Visita (v)
+	if color[v] == grigio 
+		ciclico = true;
+
+/* ********************************* */
+
+BFS (G,w)
+	color [] = Init (G)
+	
+	Q = Enqueue (Q, w)
+	color[w] = grigio 
+	
+	while Q != NIL
+		s = Head (Q)
+		
+		Visita (s) //visita il vertice sorgente in preorder
+		
+		for each v in Adj(s) 
+			
+			Visita (v) //visita la stella uscente in preorder
+			
+			if color[v] == bianco then
+				Q = Enqueue (Q, v)
+				color[v] = grigio
+			
+			Visita (v) //visita la stella uscente in postorder
+		
+		Visita (s) //visita il vertice sorgente in postorder
+		
+		Q = Dequeue(Q)
+		color[s] = nero
+
+
+//Esempio di visita: calcola la distanza minima da w di ogni vertice 
+//(supponiamo che il vettore d sia inizializzato correttamente)
+//(supponiamo che s sia visibile alla funzione)
+
+Visita (v)
+	if d[v] > d[s] + 1 
+		d[v] = d[s] + 1
+
+InitDistance (G, w)
+	for each v in V 
+		d[v] = infinito
+	d[w] = 0
+	

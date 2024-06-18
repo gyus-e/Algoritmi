@@ -1,0 +1,89 @@
+-Permutazione:
+sequenza ordinata di elementi di un insieme tale che ogni elemento appare una e una sola volta.
+
+-Ordinamento topologico di G = (V, E): 
+permutazione di V tale che per ogni (v, u) in E, 
+v precede u nella permutazione
+
+-Grado entrante di v: 
+numero di archi che terminano in v.
+
+-Sottografo di G = (V, E):
+grafo G' = (V', E') dove
+V' è contenuto in V
+E' è contenuto in E intersecato V' x V'
+
+/* ************************************************************************************************ */
+
+Lemma 1:
+se G è aciclico, allora esiste v appartenente a V che ha grado entrante uguale a 0.
+
+Lemma 2:
+se G è aciclico e G' è un suo sottografo, allora G'è aciclico
+
+Teorema:
+Esiste un ordinamento topologico di un grafo se e solo se il grafo è aciclico.
+
+/* ************************************************************************************************ */
+VERSIONE 1: BFS CON CODA E GRADO ENTRANTE
+/* ************************************************************************************************ */
+
+GradoEntrante (G)
+	for each v in V 
+		GE[v] = 0
+		
+	for each v in V
+		for each u in Adj[v]
+			GE[u] = GE[u] + 1
+	
+	return GE
+
+/* ************************************************************************************************ */
+
+OrdinamentoTopologico (G)
+	GE [] = GradoEntrante (G)
+
+	for each v in V 
+		if GE[v] == 0
+			Q = Enqueue (Q,v)
+	
+	while Q != NIL
+		h = Head (Q)
+		
+		Visita (h) //visita il vertice sorgente (seguendo un ordinamento topologico)
+		
+		for each v in Adj[h]
+			
+			GE[v] = GE[v] - 1 //visita la stella uscente (decrementandone il grado entrante)
+			
+			if GE[v] == 0 then
+				Q = Enqueue (Q, v)
+
+		Q = Dequeue (Q)
+		
+		
+ Notare che è essenzialmente una BFS dove GE[v] = 0 equivale a color[v] = bianco.
+ Per questo motivo, è possibile accodare da subito tutti i vertici con grado entrante 0, usandoli come sorgenti.
+ (Facendolo in una BFS generica, si accoderebbero fin da subito tutti i vertici, perché il vettore dei colori è stato appena inizializzato).
+
+/* ************************************************************************************************ */
+VERSIONE 2: DFS CON STACK
+/* ************************************************************************************************ */
+
+DFS (G)
+	color [] = Init (G)
+	tempo = 0
+	S = NIL
+	for each v in V
+		if color[v] == bianco then
+			DFS_visit (G,v)
+			
+DFS_visit (G,s)
+	color[s] = grigio
+	
+	for each v in Adj[s]		
+		if color[v] == bianco then 
+			DFS_visit (G,v)
+			
+	color[s] = nero
+	S = Push (S, v) //in postorder: mette in cima il vertice su cui è finita la visita

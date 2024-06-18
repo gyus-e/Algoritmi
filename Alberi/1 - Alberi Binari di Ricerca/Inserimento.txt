@@ -1,0 +1,17 @@
+Insert (T, k)
+	if (T == NIL)
+		T = NewNode (k)
+		
+	else if (T->key > k)
+		Insert (T->Sx, k)
+	
+	else if (T->key < k)
+		Insert (T->Dx, k)
+		
+/* ********************************** */
+
+NewNode (k)
+	T->key = k 
+	T->Sx = NIL
+	T->Dx = NIL 
+	return T

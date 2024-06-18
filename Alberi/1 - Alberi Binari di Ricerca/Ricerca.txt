@@ -1,0 +1,67 @@
+Search (T, k)
+	if (T != NIL)
+		if (T->key == k)
+			return true
+		
+		else if (T->key < k)
+			return Search (T->Sx, k)
+		
+		else if (T->key > k)
+			return Search (T->Dx, k)
+	
+	return false
+
+/* ********************************** */
+	
+Min (T)
+	if (T == NIL)
+		return NIL
+	else if (T->Sx == NIL)
+		return T
+	else 
+		return Min (T->Sx)
+
+/* ********************************** */
+		
+Max (T)
+	if (T == NIL)
+		return NIL
+	else if (T->Dx == NIL)
+		return T 
+	else 
+		return Max (T->Dx)
+
+/* ********************************** */
+	
+Predecessor (T, k)
+	if (T != NIL)
+		
+		if (T->key >= k)
+			return Predecessor (T->Sx, k)
+	
+		else if (T->key < k)
+			ret = Predecessor (T->Dx, k)
+		
+			if (ret == NIL)
+				return T 
+			else 
+				return ret 
+	else
+		return NIL
+
+/* ********************************** */
+
+Successor (T, k)
+	if (T != NIL)
+		if (T->key <= k)
+			return Successor (T->Dx, k)
+		
+		else if (T->key > k)
+			ret = Successor (T->Sx, k)
+		
+			if (ret == NIL)
+				return T 
+			else 
+				return ret 
+	else				
+		return NIL

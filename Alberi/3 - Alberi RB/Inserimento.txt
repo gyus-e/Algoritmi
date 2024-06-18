@@ -1,0 +1,113 @@
+Insert (T, k)
+	if (isNil (T))
+		T = NewNode (k)
+	
+	else if (T->key > k)
+		Insert (T->Sx, k)
+		BilanciaSx (T)
+		
+	else if (T->key < k)
+		Insert (T->Dx, k)
+		BilanciaDx (T)
+	
+/* **************************** */
+
+BilanciaSx (T)
+	switch (ViolazioneSx (T))
+		case 1:	caso1(T)
+		case 2: caso2sx(T)
+		case 3: caso3sx(T)
+
+/* **************************** */
+
+BilanciaDx (T)
+	switch (ViolazioneDx (T))
+		case 1: caso1(T)
+		case 2: caso2dx(T)
+		case 3: caso3dx(T)
+
+/* **************************** */
+	
+ViolazioneSx (T)
+	S = T->Sx
+	D = T->Dx
+	if (S->color == red && (S->Sx->color == red || S->Dx->color == red))
+		if (D->color == red)
+			return 1
+		else if (S->Sx->color == red)
+			return 2
+		else if (S->Dx->color == red)
+			return 3
+	else 
+		return 0
+
+/* **************************** */
+
+ViolazioneDx (T)
+	D = T->Dx
+	if (D->color == red && (D->Sx->color == red || D->Dx->color == red))
+		if (T->Sx->color == red)
+			return 1
+		else if (D->Dx->color == red)
+			return 2
+		else if (D->Sx->color == red)
+			return 3
+	else
+		return 0
+		
+/* **************************** */
+
+caso1 (T)
+	T->color = red 
+	T->Sx->color = black
+	T->Dx->color = black
+
+/* **************************** */
+
+caso2sx (T)
+	T = RotazioneSx (T)
+	T->color = black
+	T->Dx->color = red
+
+/* **************************** */
+
+caso2dx (T)
+	T = RotazioneDx (T)
+	T->color = black
+	T->Sx->color = red
+
+/* **************************** */
+
+caso3sx (T)
+	T->Sx = RotazioneDx (T->Sx)
+	caso2sx (T)
+
+/* **************************** */
+
+caso3dx (T)
+	T->Dx = RotazioneSx (T->Dx)
+	caso2dx (T)
+
+/* **************************** */
+
+RotazioneSx (T)
+	S = T->Sx 
+	T->Sx = S->Dx 
+	S->Dx = T 
+	return S
+
+/* **************************** */
+
+RotazioneDx (T)
+	D = T->Dx 
+	T->Dx = D->Sx 
+	D->Sx = T 
+	return D
+
+/* **************************** */
+
+NewNode (k)
+	T->key = k 
+	T->Sx = Nil()
+	T->Dx = Nil()
+	T->color = red

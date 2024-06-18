@@ -1,0 +1,46 @@
+/* ********************************* */
+//Iteratori BFS e DFS
+
+PreOrderIterator (G)
+	i = 0
+	if |G| > 0 then
+		color [] = Init (G)
+		v = V[i]
+		S1 = Push (S1, v)
+		S2 = Push (S2, 0)
+		color [v] = nero
+		
+Terminated (itr)
+	return i == |G|
+
+Successor ()
+	if i < |G| then 
+		repeat 
+			v = Top (S1)
+			itr = Top (S2)
+			while !Terminated(itr)
+				w = *itr 
+				itr++;
+				
+				if color[w] == bianco then 
+					S1 = Push (S1, w)
+					S2 = Push (S2, 0)
+					color[w] = nero 
+					return
+				
+			Pop(S1)
+			Pop(S2)
+				
+		until S == NIL
+		
+		i++ 
+		while i < |G|
+			v = V[i]
+			if color[v] == bianco then 
+				S1 = Push (S1, w)
+				S2 = Push (S2, 0)
+				color[w] = nero 
+				break
+			i++
+	else
+		exception
