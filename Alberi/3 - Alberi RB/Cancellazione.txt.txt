@@ -67,7 +67,7 @@ PropagateBlack (T)
 /* **************************** */
 
 BilanciaSx (T)
-	switch (ViolazioneSx (T->Sx, T->Dx))
+	switch (ViolazioneSx (T))
 		case 1: caso1Sx(T)
 		case 2: caso2Sx(T)
 		case 3: caso3Sx(T)
@@ -75,7 +75,9 @@ BilanciaSx (T)
 
 /* **************************** */
 
-ViolazioneSx (S, D)
+ViolazioneSx (T)
+	S = T->Sx 
+	D = T->Dx
 	if (S->color == doubleBlack)
 		
 		if (D->color == red)
@@ -84,10 +86,10 @@ ViolazioneSx (S, D)
 		else if (D->Dx->color == red)
 			return 2
 			
-		else if (D->Sx->color == black)
+		else if (D->Sx->color == red)
 			return 3
 			
-		else if (D->Sx->color == red)
+		else if (D->Sx->color == black)
 			return 4
 		
 	else 
@@ -97,24 +99,33 @@ ViolazioneSx (S, D)
 
 Caso1Sx (T)
 	RotazioneDx (T)
+	
 	T->color = black 
 	T->Sx->color = red
+	
 	BilanciaSx (T->Sx)
 
 Caso2Sx (T)
-	RotazioneSx (T)
-	T->Dx->color = black
+	RotazioneDx (T)
+	
 	T->color = T->Sx->color 
+
+	T->Dx->color = black
 	T->Sx->color = black 
+	
 	T->Sx->Sx->color = black
 
 Caso3Sx (T)
+	T->Dx = RotazioneSx (T->Dx)
+	
+	T->Dx->color = black 
+	T->Dx->Dx->color = red 
+	
+	Caso2Sx(T)
+
+Caso4Sx (T)
 	PropagateBlack (T)
+	
 	T->Sx->color = black
 	T->Dx->color = red
 	
-Caso4Sx (T)
-	T->Dx = RotazioneSx (T->Dx)
-	T->Dx->color = black 
-	T->Dx->Dx->color = red 
-	Caso2Sx(T)
