@@ -1,23 +1,35 @@
-BreadthIterator
+class BreadthIterator
 {
-	Queue Q = NIL
+	Grafo G
+	Node curr = NIL
+
+	Queue Q
 	int idx = 0
+
+	Vector color
 }
 
-BreadthIterator (G)
+BreadthIterator (grafo)
 {
-	if (G.Size() == 0)
+	G = grafo
+
+	if (G.V.Size() == 0)
 	{
-		throw exception;
+		throw exception
 	}
 
-	color = Init (G) 
+	InitColor () 
 
-	s = V[0];
-	Q.Enqueue(s)
-	color[s] = gray;
+	curr = V[0]
+	Q.Enqueue(curr)
+	color[curr] = gray
 	
-	idx = 1;
+	idx = 1
+}
+
+Operator* ()
+{
+	return curr
 }
 
 Operator++ ()
@@ -26,12 +38,12 @@ Operator++ ()
 	{
 		u = Q.HeadNDequeue()
 		
-		for each v in Adj[u]
+		for each v in G.Adj[u]
 		{
 			if (color[v] == white) 
 			{
-				Q.Enqueue(v);
-				color[v] = gray;
+				Q.Enqueue(v)
+				color[v] = gray
 			}
 		}
 		
@@ -39,35 +51,58 @@ Operator++ ()
 	}		
 	
 	//Se la coda è vuota ma l'iteratore non è terminato
-	else if (!Terminated(G))
+	else if (!Terminated())
 	{
 		//devo scegliere la prossima sorgente dal vettore dei vertici
 		//si parte da idx
-		for (i = idx; i < |V|; i++)
+		i = idx
+		while (i < G.V.Size())
 		{
-			v = V[i];
+			v = G.V[i]
+			i++
+
 			if (color[v] == white) 
 			{
-				Q.Enqueue(v);
-				color[v] = gray;
+				Q.Enqueue(v)
+				color[v] = gray
 				
 				//quando ho trovato una radice di ricerca posso uscire dal for
-				break; 
+				break
 			}
 		}	
 		
-		idx = i+1; //la prossima ricerca partirá da idx
+		idx = i //la prossima ricerca partirá da i
 	}
 
 	//La coda è vuota e l'iteratore è terminato
 	else 
 	{
-		throw exception;
+		throw exception
 	}
-	
+
+	curr = Q.Head()
 }
 
-Terminated(G)
+Terminated()
 {
-	return idx >= G.Size();
+	return idx >= G.V.Size()
+}
+
+Reset ()
+{
+	Q.Clear()
+	InitColor()
+
+	curr = V[0]
+	Q.Enqueue(curr)
+	color[curr] = gray
+	idx = 1
+}
+
+InitColor ()
+{
+	for i = 0; i < G.V.Size(); i++
+	{
+		color[i] = white
+	}
 }

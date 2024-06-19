@@ -1,0 +1,10 @@
+class Grafo
+{
+	struct Node 
+	{
+		Data d
+	}
+
+	Vector<Node> V
+	Vector<List<Node>> Adj
+}
