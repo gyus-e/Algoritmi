@@ -1,29 +1,3 @@
--Permutazione:
-sequenza ordinata di elementi di un insieme tale che ogni elemento appare una e una sola volta.
-
--Ordinamento topologico di G = (V, E): 
-permutazione di V tale che per ogni (v, u) in E, 
-v precede u nella permutazione
-
--Grado entrante di v: 
-numero di archi che terminano in v.
-
--Sottografo di G = (V, E):
-grafo G' = (V', E') dove
-V' è contenuto in V
-E' è contenuto in E intersecato V' x V'
-
-/* ************************************************************************************************ */
-
-Lemma 1:
-se G è aciclico, allora esiste v appartenente a V che ha grado entrante uguale a 0.
-
-Lemma 2:
-se G è aciclico e G' è un suo sottografo, allora G'è aciclico
-
-Teorema:
-Esiste un ordinamento topologico di un grafo se e solo se il grafo è aciclico.
-
 /* ************************************************************************************************ */
 VERSIONE 1: BFS CON CODA E GRADO ENTRANTE
 /* ************************************************************************************************ */

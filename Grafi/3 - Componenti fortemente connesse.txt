@@ -1,39 +1,3 @@
--Grafo Connesso: G=(V,E) tale che
-Ogni coppia di vertici v, u appartenenti a V è collegata attraverso un cammino.
-
--Grafo fortemente connesso: grafo orientato G=(V,E) tale che
-Ogni coppia di vertici v, u appartenenti a V è mutualmente raggiungibile.
-
--Componente connessa di G: sottografo MASSIMALE connesso.
-
--Componente fortemente connessa di G: sottografo MASSIMALE fortemente connesso.
-
-(Massimale vuol dire che deve essere impossibile prendere un sottografo di G piú grande che continui a mantenere la proprietá desiderata.)
-
-Dal corso di algebra:
--Una foresta è un grafo senza circuiti (se orientato, bisogna anche imporre che ogni vertice abbia grado entrante pari a 1)
--Un albero è una componente connessa di una foresta
-
-L'ordine con cui vengono esplorati i vertici nella DFS genera una foresta di visita, la Foresta Depth First. Ogni volta che la DFS_visit viene chiamata da DFS, essa genera un nuovo albero della foresta.
-
-I vertici di una componente connessa (in un grafo non orientato) coincidono con quelli di un albero della foresta depth first
-
-I vertici di una componente fortemente connessa appartengono a uno stesso albero nella foresta depth first (ma un solo albero puó contenere piú componenti fortemente connesse).
-
-
-Relativamente alla foresta depth first, gli archi del grafo possono essere di quattro tipi:
-
--archi di un albero: trovano un vertice non ancora esplorato (cioé un vertice bianco)
-
--archi all'indietro: trovano un vertice di cui si stanno ancora esplorando i percorsi (cioé un vertice grigio: sono gli archi che rendono ciclico un grafo)
-
--archi in avanti: trovano un vertice giá esplorato, ma piú in basso nello stesso albero (il vertice sará nero e, per il teorema della struttura a parentesi, i suoi tempi di inizio e fine visita saranno contenuti in quelli del vertice corrente)
-
--archi di attraversamento: archi che trovano un vertice giá esplorato in un albero precedente (il vertice sará nero e, per il teorema della struttura a parentesi, i suoi tempi di inizio e fine visita saranno disgiunti da quelli del vertice corrente)
-
-
-Una DFS sul grafo trasposto permetterebbe di trovare le componenti fortemente connesse, ma prima bisogna inibire gli archi di attraversamento.
-
 /* ********************************* */
 L'algoritmo per il calcolo delle CFC è diviso in:
 1: DFS sul grafo, in postorder inserisce vertici in uno stack

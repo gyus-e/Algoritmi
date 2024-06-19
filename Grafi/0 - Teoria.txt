@@ -1,3 +1,69 @@
+-Permutazione:
+sequenza ordinata di elementi di un insieme tale che ogni elemento appare una e una sola volta.
+
+-Ordinamento topologico di G = (V, E): 
+permutazione di V tale che per ogni (v, u) in E, 
+v precede u nella permutazione
+
+-Grado entrante di v: 
+numero di archi che terminano in v.
+
+-Sottografo di G = (V, E):
+grafo G' = (V', E') dove
+V' è contenuto in V
+E' è contenuto in E intersecato V' x V'
+
+/* ************************************************************************************************ */
+
+Lemma 1:
+se G è aciclico, allora esiste v appartenente a V che ha grado entrante uguale a 0.
+
+Lemma 2:
+se G è aciclico e G' è un suo sottografo, allora G'è aciclico
+
+Teorema:
+Esiste un ordinamento topologico di un grafo se e solo se il grafo è aciclico.
+
+/* ************************************************************************************************ */
+
+-Grafo Connesso: G=(V,E) tale che
+Ogni coppia di vertici v, u appartenenti a V è collegata attraverso un cammino.
+
+-Grafo fortemente connesso: grafo orientato G=(V,E) tale che
+Ogni coppia di vertici v, u appartenenti a V è mutualmente raggiungibile.
+
+-Componente connessa di G: sottografo MASSIMALE connesso.
+
+-Componente fortemente connessa di G: sottografo MASSIMALE fortemente connesso.
+
+(Massimale vuol dire che deve essere impossibile prendere un sottografo di G piú grande che continui a mantenere la proprietá desiderata.)
+
+/* ************************************************************************************************ */
+
+Dal corso di algebra:
+-Una foresta è un grafo senza circuiti (se orientato, bisogna anche imporre che ogni vertice abbia grado entrante pari a 1)
+-Un albero è una componente connessa di una foresta
+
+L'ordine con cui vengono esplorati i vertici nella DFS genera una foresta di visita, la Foresta Depth First. Ogni volta che la DFS_visit viene chiamata da DFS, essa genera un nuovo albero della foresta.
+
+I vertici di una componente connessa (in un grafo non orientato) coincidono con quelli di un albero della foresta depth first
+
+I vertici di una componente fortemente connessa appartengono a uno stesso albero nella foresta depth first (ma un solo albero puó contenere piú componenti fortemente connesse).
+
+/* ************************************************************************************************ */
+
+TIPI DI ARCHI NELLA DFS
+
+-archi di un albero: trovano un vertice non ancora esplorato (cioé un vertice bianco)
+
+-archi all'indietro: trovano un vertice di cui si stanno ancora esplorando i percorsi (cioé un vertice grigio: sono gli archi che rendono ciclico un grafo)
+
+-archi in avanti: trovano un vertice giá esplorato, ma piú in basso nello stesso albero (il vertice sará nero e, per il teorema della struttura a parentesi, i suoi tempi di inizio e fine visita saranno contenuti in quelli del vertice corrente)
+
+-archi di attraversamento: archi che trovano un vertice giá esplorato in un albero precedente (il vertice sará nero e, per il teorema della struttura a parentesi, i suoi tempi di inizio e fine visita saranno disgiunti da quelli del vertice corrente)
+
+/* ********************************************************* */
+
 TEOREMA DELLA STRUTTURA A PARENTESI:
 
 Dato un grafo G, e dati due vertici V e U appartenenti al grafo
@@ -21,3 +87,5 @@ PER OGNI coppia di vertici distinti V e U appartenenti al grafo
 U è un discendente di V in un albero della foresta depth-first 
               SE E SOLO SE
 All'istante T_Scoperta [V] ESISTE un percorso in G fatto di soli vertici bianchi da V a U
+
+/* ********************************************************* */
