@@ -13,7 +13,7 @@ BreadthIterator (grafo)
 {
 	G = grafo
 
-	if (G.V.Size() == 0)
+	if (V.Size() == 0)
 	{
 		throw exception
 	}
@@ -29,7 +29,12 @@ BreadthIterator (grafo)
 }
 
 Operator++ ()
-{	
+{
+	if (Terminated())
+	{
+		throw exception
+	}
+	
 	if (!Q.Empty())
 	{
 		u = Q.HeadNDequeue()
@@ -51,9 +56,9 @@ Operator++ ()
 	{
 		//devo scegliere la prossima sorgente dal vettore dei vertici
 		//si parte da V[idx]
-		while (idx < G.V.Size())
+		while (idx < V.Size())
 		{
-			v = G.V[idx]
+			v = V[idx]
 			idx++
 
 			if (color[v] == white) //trovata una radice di ricerca: la si accoda e si esce dal ciclo
@@ -83,7 +88,7 @@ Operator* ()
 
 Terminated()
 {
-	return idx >= G.V.Size()
+	return idx >= V.Size()
 }
 
 Reset ()
@@ -99,7 +104,7 @@ Reset ()
 
 InitColor ()
 {
-	for (i = 0; i < G.V.Size(); i++)
+	for (i = 0; i < V.Size(); i++)
 	{
 		color[i] = white
 	}
