@@ -1,10 +1,21 @@
 #include "Vector.c"
+#include "SelectionSort.c"
 #include "InsertionSort.c"
 #include "MergeSort.c"
 #include "QuickSort.c"
 #include "HeapSort.c"
 
 #define SIZE 55
+
+void TestSelectionSort()
+{
+    printf("Selection sort:\n");
+    int A[SIZE];
+    Init(A, SIZE);
+    Print(A, SIZE);
+    SelectionSort(A, SIZE);
+    Print (A, SIZE);
+} 
 
 void TestInsertionSort()
 {
@@ -63,6 +74,8 @@ void TestFebbraio ()
 
 int main ()
 {
+    TestSelectionSort();
+    printf("\n");
     TestInsertionSort();
     printf("\n");
     TestMergeSort();
