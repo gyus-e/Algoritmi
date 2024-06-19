@@ -101,7 +101,7 @@ Reset ()
 
 InitColor ()
 {
-	for i = 0; i < G.V.Size(); i++
+	for (i = 0; i < G.V.Size(); i++)
 	{
 		color[i] = white
 	}
