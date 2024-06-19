@@ -4,9 +4,9 @@ class BreadthIterator
 	Node curr
 
 	Queue Q
-	int idx
-
 	Vector color
+	
+	int idx
 }
 
 BreadthIterator (grafo)
@@ -21,6 +21,7 @@ BreadthIterator (grafo)
 	InitColor () 
 
 	curr = V[0]
+
 	Q.Enqueue(curr)
 	color[curr] = gray
 	
@@ -49,24 +50,20 @@ Operator++ ()
 	else if (!Terminated())
 	{
 		//devo scegliere la prossima sorgente dal vettore dei vertici
-		//si parte da idx
-		i = idx
-		while (i < G.V.Size())
+		//si parte da V[idx]
+		while (idx < G.V.Size())
 		{
-			v = G.V[i]
-			i++
+			v = G.V[idx]
+			idx++
 
-			if (color[v] == white) 
+			if (color[v] == white) //trovata una radice di ricerca: la si accoda e si esce dal ciclo
 			{
 				Q.Enqueue(v)
 				color[v] = gray
-				
-				//quando ho trovato una radice di ricerca posso uscire dal for
+
 				break
 			}
 		}	
-		
-		idx = i //la prossima ricerca partirá da i
 	}
 
 	//bisogna controllare di nuovo se la coda è vuota (potrebbe essere stato fatto un dequeue) 

@@ -29,24 +29,25 @@ PreorderDepthIterator (grafo)
 
 Operator++()
 {
-	while (!S.Empty())
-	{
-		(curr, itr) = S.Top()
-		while (!Terminated())
+	if (!Terminated())
+		while (!S.Empty())
 		{
-			w = *itr; //?
-			itr++; //?
-			
-			if (c[w] == white)
+			(curr, itr) = S.Top()
+			while (!itr.Terminated())
 			{
-				S.push (w,0)
-				c[w] = gray
+				w = *itr; 
+				itr++; //itr punta al prossimo vertice sulla lista di adiacenza di 
 				
-				return;
+				if (c[w] == white)
+				{
+					S.push (w,0)
+					c[w] = gray
+					
+					return;
+				}
 			}
+			S.Pop() 
 		}
-		S.Pop() 
-	}
 }
 
 Terminated()
