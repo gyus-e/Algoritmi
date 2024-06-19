@@ -97,6 +97,10 @@ ViolazioneSx (T)
 
 /* **************************** */
 
+//Il caso 1 fa una rotazione per portare il rosso in alto e spingere il doppio nero piú in basso 
+//Poi colora la nuova radice (il vecchio figlio rosso) di nero, e la vecchia radice (ora figlio sinistro) di rosso 
+//(è garantito che i figli della vecchia radice siano neri: uno è il nodo doppio nero, l'altro era il figlio del nodo rosso prima di ruotare)
+//Ma è costretto a chiamare di nuovo il bilanciamento sulla vecchia radice
 Caso1Sx (T)
 	RotazioneDx (T)
 	
@@ -105,16 +109,23 @@ Caso1Sx (T)
 	
 	BilanciaSx (T->Sx)
 
+//Il caso 2 fa una rotazione per portare il nero in alto e spingere il doppio nero piú in basso 
+//Poi colora la nuova radice (sempre nera) del colore della vecchia radice (ora figlio sinistro)
+//Colora entrambi i figli di nero 
+//Infine elimina il doppio nero dal nipote sinistro
 Caso2Sx (T)
 	RotazioneDx (T)
 	
 	T->color = T->Sx->color 
 
-	T->Dx->color = black
 	T->Sx->color = black 
+	T->Dx->color = black
 	
 	T->Sx->Sx->color = black
 
+//Il caso 3 fa una rotazione sul figlio destro per portare il rosso in alto
+//Poi colora il nuovo figlio destro (T->Dx) di nero (era il nodo rosso) e il vecchio figlio destro (ora T->Dx->Dx) di rosso (necessariamente nero: altrimenti sarebbe stato un caso 2)
+//Ora T->Dx->Dx è rosso: siamo nel caso 2
 Caso3Sx (T)
 	T->Dx = RotazioneSx (T->Dx)
 	
@@ -123,6 +134,8 @@ Caso3Sx (T)
 	
 	Caso2Sx(T)
 
+//Il caso 4 è il piú semplice: propaga il nero sulla radice (se era giá nera, diventerá doppio nero! Per questo bisogna bilanciare al ritorno da ogni chiamata)
+//poi elimina il doppio nero dal figlio sinistro, e colora di rosso il figlio destro (puó farlo: entrambi i nipoti destri sono neri, altrimenti sarebbe caso 2 o 3)
 Caso4Sx (T)
 	PropagateBlack (T)
 	
