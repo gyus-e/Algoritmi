@@ -11,7 +11,7 @@ Ogni coppia di vertici v, u appartenenti a V è mutualmente raggiungibile.
 (Massimale vuol dire che deve essere impossibile prendere un sottografo di G piú grande che continui a mantenere la proprietá desiderata.)
 
 Dal corso di algebra:
--Una foresta è un grafo senza circuiti (o cicli)
+-Una foresta è un grafo senza circuiti (se orientato, bisogna anche imporre che ogni vertice abbia grado entrante pari a 1)
 -Un albero è una componente connessa di una foresta
 
 L'ordine con cui vengono esplorati i vertici nella DFS genera una foresta di visita, la Foresta Depth First. Ogni volta che la DFS_visit viene chiamata da DFS, essa genera un nuovo albero della foresta.
