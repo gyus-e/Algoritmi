@@ -4,16 +4,16 @@ class PreorderDepthIterator
 	Node curr
 
 	Stack S
-	int idx
-
 	Vector color
+	
+	int idx
 }
 
 PreorderDepthIterator (grafo)
 {
 	G = grafo
 
-	if (G.V.Size() == 0)
+	if (V.Size() == 0)
 	{
 		throw exception
 	}
@@ -21,6 +21,8 @@ PreorderDepthIterator (grafo)
 	InitColor ()
 
 	curr = V[0]
+	itr (Adj[curr]) //itera sulla lista di adiacenza di curr
+	
 	S.Push(curr, itr)
 	color[curr] = gray
 
@@ -29,28 +31,74 @@ PreorderDepthIterator (grafo)
 
 Operator++()
 {
-	if (!Terminated())
-		while (!S.Empty())
+	if (Terminated())
+	{
+		throw exception
+	}
+
+	while (!S.Empty())
+	{
+		(curr, itr) = S.Top()
+
+		while (!itr->Terminated())
 		{
-			(curr, itr) = S.Top()
-			while (!itr.Terminated())
+			v = *itr //vertice sulla lista di adiacenza di curr
+			++itr
+			
+			if (color[v] == white)
 			{
-				w = *itr; 
-				itr++; //itr punta al prossimo vertice sulla lista di adiacenza di 
+				S.push (v, itr)
+				color[v] = gray
 				
-				if (c[w] == white)
-				{
-					S.push (w,0)
-					c[w] = gray
-					
-					return;
-				}
+				return; //senza fare pop: potrei dover esplorare altri vertici raggiunti da questa sorgente
 			}
-			S.Pop() 
 		}
+		S.Pop() //alla fine del while, ho esplorato tutti i vertici
+	}
+
+	//se lo stack si è svuotato senza trovare vertici bianchi
+
+	idx++
+	
+	while (!Terminated())
+	{
+		curr = V[idx]
+		itr (Adj[curr])
+		idx++
+
+		if (color[curr] == white)
+		{
+			S.Push (curr, itr)
+			color[curr] = gray
+
+			break
+		}
+	}
+
+	if (S.Empty() && Terminated())
+	{
+		throw exception
+	}
+}
+
+Operator* ()
+{
+	return curr
 }
 
 Terminated()
 {
-	return idx >= G.V.Size()
+	return idx >= V.Size()
+}
+
+Reset ()
+{
+	S.Clear()
+	Initcolor()
+
+	curr = V[0]
+	itr (Adj[curr])
+	S.Push(curr, itr)
+	color[curr] = gray
+	idx = 1
 }
