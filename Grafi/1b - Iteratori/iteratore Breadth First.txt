@@ -74,8 +74,8 @@ Operator++ ()
 		idx = i //la prossima ricerca partirá da i
 	}
 
-	//La coda è vuota e l'iteratore è terminato
-	else 
+	//bisogna controllare di nuovo se la coda è vuota (potrebbe essere stato fatto un dequeue) o l'iteratore è terminato (idx potrebbe aver raggiunto V.Size())
+	if (Q.Empty() && Terminated()) 
 	{
 		throw exception
 	}
