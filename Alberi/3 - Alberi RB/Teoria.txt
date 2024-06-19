@@ -1,0 +1,21 @@
+PROPRIETÁ DI UN ALBERO RED-BLACK:
+Ogni nodo è rosso o nero
+Le foglie sono nodi NIL (il contenuto non conta) e sono di colore nero
+Se un nodo è rosso, i suoi figli sono entrambi neri
+Ogni percorso da un nodo interno fissato a un nodo NIL qualsiasi ha lo stesso numero di nodi neri
+
+Definiamo l'altezza nera di un nodo x, bh(x), come il numero di nodi neri da x a un qualsiasi nodo Null
+
+Per semplicitá, consideriamo sempre nera la radice dell'albero
+
+Il numero di nodi interni n di un (sotto-)albero radicato nel nodo x è:
+ n >= 2^(bh(x))-1     n+1 = 2^(bh(x))      log(n+1) = bh(x)
+L'altezza nera di un nodo x deve essere maggiore o uguale alla metá dell'altezza di x: 
+ bh(x) >= height(x)/2     2*bh(x) >= height(x)
+Ne segue che un albero Red Black radicato in x, con n nodi, ha altezza:
+ height(x) <= 2*bh(x) = 2*log(n+1)
+
+Togliendo i nodi rossi da un albero RB si ottiene un albero pieno
+
+In un albero RB con n nodi, inserimenti, ricerche e cancellazioni hanno tutte tempo logaritmico su n
+ t = O(log(n))

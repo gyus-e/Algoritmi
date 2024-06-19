@@ -1,0 +1,23 @@
+TEOREMA DELLA STRUTTURA A PARENTESI:
+
+Dato un grafo G, e dati due vertici V e U appartenenti al grafo
+Al termine di una visita DFS sará possibile UNA SOLA delle seguenti:
+
+il tempo di visita di un vertice è contenuto nel tempo di visita dell'altro
+  1) T_Scoperta [V] < T_Scoperta [U] < T_Fine [U] < T_Fine [V]
+  2) T_Scoperta [U] < T_Scoperta [V] < T_Fine [V] < T_Fine [U]
+
+i tempi di visita dei due vertici sono disgiunti
+  3) T_Scoperta [V] < T_Fine [V] < T_Scoperta [U] < T_Fine [U]
+  4) T_Scoperta [U] < T_Fine [U] < T_Scoperta [V] < T_Fine [V]
+
+/* ********************************************************* */
+
+TEOREMA DEL PERCORSO BIANCO:
+
+Dato un grafo G, ed eseguita una DFS su G
+PER OGNI coppia di vertici distinti V e U appartenenti al grafo
+
+U è un discendente di V in un albero della foresta depth-first 
+              SE E SOLO SE
+All'istante T_Scoperta [V] ESISTE un percorso in G fatto di soli vertici bianchi da V a U
