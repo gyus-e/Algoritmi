@@ -1,0 +1,55 @@
+class PreorderDepthIterator
+{
+	Grafo G
+	Node curr
+
+	Stack S
+	int idx
+
+	Vector color
+}
+
+PreorderDepthIterator (grafo)
+{
+	G = grafo
+
+	if (G.V.Size() == 0)
+	{
+		throw exception
+	}
+	
+	InitColor ()
+
+	curr = V[0]
+	S.Push(curr, itr)
+	color[curr] = gray
+
+	idx = 1
+}
+
+Operator++()
+{
+	while (!S.Empty())
+	{
+		(curr, itr) = S.Top()
+		while (!Terminated())
+		{
+			w = *itr; //?
+			itr++; //?
+			
+			if (c[w] == white)
+			{
+				S.push (w,0)
+				c[w] = gray
+				
+				return;
+			}
+		}
+		S.Pop() 
+	}
+}
+
+Terminated()
+{
+	return idx >= G.V.Size()
+}
