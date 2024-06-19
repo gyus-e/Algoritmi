@@ -27,11 +27,6 @@ BreadthIterator (grafo)
 	idx = 1
 }
 
-Operator* ()
-{
-	return curr
-}
-
 Operator++ ()
 {	
 	if (!Q.Empty())
@@ -81,6 +76,11 @@ Operator++ ()
 	}
 
 	curr = Q.Head()
+}
+
+Operator* ()
+{
+	return curr
 }
 
 Terminated()
