@@ -1,6 +1,5 @@
 class BreadthIterator
 {
-	Grafo G
 	Node curr
 
 	Queue Q
@@ -9,10 +8,8 @@ class BreadthIterator
 	int idx
 }
 
-BreadthIterator (grafo)
+BreadthIterator (G)
 {
-	G = grafo
-
 	if (V.Size() == 0)
 	{
 		throw exception

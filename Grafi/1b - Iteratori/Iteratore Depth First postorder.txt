@@ -1,6 +1,5 @@
 class PostorderDepthIterator
 {
-	Grafo G
 	Node curr
 
 	Stack S
@@ -9,11 +8,9 @@ class PostorderDepthIterator
 	Vector color
 }
 
-PostorderDepthIterator ()
+PostorderDepthIterator (G)
 {
-    G = grafo
-
-	if (G.V.Size() == 0)
+	if (V.Size() == 0)
 	{
 		throw exception
 	}
@@ -21,39 +18,111 @@ PostorderDepthIterator ()
     InitColor ()
 
     curr = V[0]
+	itr (Adj[curr])
+
     S.Push(curr, itr)
     color[curr] = gray
 
     idx = 1
     
     LeftMostLeaf()
-    //foglia piú a sinistra nell'albero radicato in v della foresta di visita
 }
 
 Operator++()
 {
+	if (Terminated())
+	{
+		throw exception
+	}
+	
 	while (!S.Empty())
 	{
 		(curr, itr) = S.Top()
-		while (!Terminated())
+
+		while (!itr.Terminated())
 		{
-			w = *itr; //?
-			itr++; //?
+			v = *itr;
+			++itr;
 			
-			if (c[w] == white)
+			if (c[v] == white)
 			{
-				S.push (w,0)
-				c[w] = gray
+				S.push (v,0)
+				c[v] = gray
 				
 				LeftMostLeaf()
 				
-				return;
+				return
 			}
 		}
+
+		color[curr] = black 
+		S.Pop()
 	}
+
+	idx++;
+
+	while (!Terminated())
+	{
+		curr = V[idx]
+		itr (Adj[curr])
+		idx++
+
+		if (color[curr] == white)
+		{
+			S.Push(curr, itr)
+			color[curr] = gray 
+
+			LeftMostLeaf()
+			break
+		}
+	}	
+
+	if (S.Empty() && Terminated())
+	{
+		throw exception
+	}
+}
+
+Operator* ()
+{
+	return curr
 }
 
 Terminated()
 {
-	return idx >= G.V.Size()
+	return idx >= V.Size()
+}
+
+Reset ()
+{
+	S.Clear()
+	Initcolor()
+
+	curr = V[0]
+	itr (Adj[curr])
+
+	S.Push(curr, itr)
+	color[curr] = gray
+
+	idx = 1
+
+	LeftMostLeaf()
+}
+
+LeftMostLeaf()
+{
+	(curr, itr) = S.Top()
+	while (!itr.Terminated())
+	{
+		v = *itr 
+		++itr
+
+		if (color[v] == white)
+		{
+			S.Push(v, itr)
+			color[v] = gray
+
+			(curr, itr) = S.Top()
+		}
+	}
 }

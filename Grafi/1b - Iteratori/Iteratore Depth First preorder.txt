@@ -1,6 +1,5 @@
 class PreorderDepthIterator
 {
-	Grafo G
 	Node curr
 
 	Stack S
@@ -9,10 +8,8 @@ class PreorderDepthIterator
 	int idx
 }
 
-PreorderDepthIterator (grafo)
+PreorderDepthIterator (G)
 {
-	G = grafo
-
 	if (V.Size() == 0)
 	{
 		throw exception
@@ -21,7 +18,7 @@ PreorderDepthIterator (grafo)
 	InitColor ()
 
 	curr = V[0]
-	itr (Adj[curr]) //itera sulla lista di adiacenza di curr
+	itr (Adj[curr]) //iteratore sulla lista di adiacenza di curr
 	
 	S.Push(curr, itr)
 	color[curr] = gray
@@ -53,6 +50,8 @@ Operator++()
 				return; //senza fare pop: potrei dover esplorare altri vertici raggiunti da questa sorgente
 			}
 		}
+
+		color[curr] = black
 		S.Pop() //alla fine del while, ho esplorato tutti i vertici
 	}
 
@@ -98,7 +97,9 @@ Reset ()
 
 	curr = V[0]
 	itr (Adj[curr])
+
 	S.Push(curr, itr)
 	color[curr] = gray
+	
 	idx = 1
 }
