@@ -1,0 +1,64 @@
+DijkstraIterator (G, w)
+{
+    if (V.Size() == 0)
+    {
+        throw exception 
+    }
+
+    s = V[0]
+    d[] = InitDistance (G)
+    d[s] = 0
+
+    Q = V //coda di prioritá con tutti i vertici 
+
+    curr = Q.ExtractMin() //supponiamo che oltre a restituire il minimo lo rimuova anche da Q
+
+    for each v in Adj[curr]
+        Relax (curr, v, w)
+}
+
+operator++ ()
+{
+    if (Terminated())
+        throw exception
+
+    curr = Q.ExtractMin()
+    for each v in Adj[curr]
+        Relax (curr, v, w)
+}
+
+operator* ()
+{
+    return curr
+}
+
+Terminated ()
+{
+    return Q == NIL
+}
+
+Reset ()
+{
+    s = V[0]
+    d[] = InitDistance (G)
+    d[s] = 0
+
+    Q = V
+
+    curr = Q.ExtractMin()
+    for each v in Adj[curr]
+        Relax (curr, v, w)
+}
+
+InitDistance (G)
+{
+    for each v in V 
+        d[v] = infinity
+    return d[]
+}
+
+Relax (u, v, w)
+{
+    if  d[v] > d[u] + w(u,v)
+        d[v] = d[u] + w(u,v)
+}
