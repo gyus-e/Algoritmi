@@ -17,14 +17,13 @@ PostorderDepthIterator (G)
 
     InitColor ()
 
-    curr = V[0]
+	idx = 0
+    curr = V[idx++]
 	itr (Adj[curr])
 
     S.Push(curr, itr)
     color[curr] = gray
 
-    idx = 1
-    
     LeftMostLeaf()
 }
 
@@ -44,10 +43,10 @@ Operator++()
 			v = *itr;
 			++itr;
 			
-			if (c[v] == white)
+			if (color[v] == white)
 			{
-				S.push (v,0)
-				c[v] = gray
+				S.push (v, itr (Adj[v]))
+				color[v] = gray
 				
 				LeftMostLeaf()
 				
@@ -59,13 +58,10 @@ Operator++()
 		S.Pop()
 	}
 
-	idx++;
-
 	while (!Terminated())
 	{
-		curr = V[idx]
+		curr = V[idx++]
 		itr (Adj[curr])
-		idx++
 
 		if (color[curr] == white)
 		{
@@ -97,14 +93,13 @@ Reset ()
 {
 	S.Clear()
 	Initcolor()
+	idx = 0
 
-	curr = V[0]
+	curr = V[idx++]
 	itr (Adj[curr])
 
 	S.Push(curr, itr)
 	color[curr] = gray
-
-	idx = 1
 
 	LeftMostLeaf()
 }
@@ -114,7 +109,7 @@ LeftMostLeaf()
 	(curr, itr) = S.Top()
 	while (!itr.Terminated())
 	{
-		v = *itr 
+		v = *itr //v in Adj[curr]
 		++itr
 
 		if (color[v] == white)

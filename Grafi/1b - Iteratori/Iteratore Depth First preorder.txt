@@ -16,14 +16,13 @@ PreorderDepthIterator (G)
 	}
 	
 	InitColor ()
+	idx = 0
 
-	curr = V[0]
+	curr = V[idx++]
 	itr (Adj[curr]) //iteratore sulla lista di adiacenza di curr
 	
 	S.Push(curr, itr)
 	color[curr] = gray
-
-	idx = 1
 }
 
 Operator++()
@@ -37,14 +36,14 @@ Operator++()
 	{
 		(curr, itr) = S.Top()
 
-		while (!itr->Terminated())
+		while (!itr.Terminated())
 		{
 			v = *itr //vertice sulla lista di adiacenza di curr
 			++itr
 			
 			if (color[v] == white)
 			{
-				S.push (v, itr)
+				S.push (v, itr (Adj[v]))
 				color[v] = gray
 				
 				return; //senza fare pop: potrei dover esplorare altri vertici raggiunti da questa sorgente
@@ -56,14 +55,11 @@ Operator++()
 	}
 
 	//se lo stack si è svuotato senza trovare vertici bianchi
-
-	idx++
 	
 	while (!Terminated())
 	{
-		curr = V[idx]
+		curr = V[idx++]
 		itr (Adj[curr])
-		idx++
 
 		if (color[curr] == white)
 		{
@@ -94,12 +90,11 @@ Reset ()
 {
 	S.Clear()
 	Initcolor()
+	idx = 0
 
-	curr = V[0]
+	curr = V[idx++]
 	itr (Adj[curr])
 
 	S.Push(curr, itr)
 	color[curr] = gray
-	
-	idx = 1
 }
