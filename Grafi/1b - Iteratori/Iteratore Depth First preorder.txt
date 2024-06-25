@@ -15,13 +15,13 @@ PreorderDepthIterator (G)
 		throw exception
 	}
 	
-	InitColor ()
+	InitColor (G)
 	idx = 0
 
 	curr = V[idx++]
-	itr (Adj[curr]) //iteratore sulla lista di adiacenza di curr
+	itr = Adj[curr] //iteratore sulla lista di adiacenza di curr
 	
-	S.Push(curr, itr)
+	S.Push (curr, itr)
 	color[curr] = gray
 }
 
@@ -43,7 +43,10 @@ Operator++()
 			
 			if (color[v] == white)
 			{
-				S.push (v, itr (Adj[v]))
+				curr = v 
+				itr = Adj[curr]
+
+				S.push (curr, itr)
 				color[v] = gray
 				
 				return; //senza fare pop: potrei dover esplorare altri vertici raggiunti da questa sorgente
@@ -58,11 +61,13 @@ Operator++()
 	
 	while (!Terminated())
 	{
-		curr = V[idx++]
-		itr (Adj[curr])
+		v = V[idx++]
 
-		if (color[curr] == white)
+		if (color[v] == white)
 		{
+			curr = v 
+			itr = Adj[curr]
+			
 			S.Push (curr, itr)
 			color[curr] = gray
 

@@ -15,16 +15,16 @@ PostorderDepthIterator (G)
 		throw exception
 	}
 
-    InitColor ()
-
+	InitColor (G)
 	idx = 0
-    curr = V[idx++]
-	itr (Adj[curr])
-
-    S.Push(curr, itr)
-    color[curr] = gray
-
-    LeftMostLeaf()
+	
+	curr = V[idx++]
+	itr = Adj[curr]
+	
+	S.Push (curr, itr)
+	color[curr] = gray 
+	
+	LeftMostLeaf()
 }
 
 Operator++()
@@ -40,12 +40,15 @@ Operator++()
 
 		while (!itr.Terminated())
 		{
-			v = *itr;
-			++itr;
+			v = *itr
+			++itr
 			
 			if (color[v] == white)
 			{
-				S.push (v, itr (Adj[v]))
+				curr = v 
+				itr = Adj[curr]
+
+				S.push (curr, itr)
 				color[v] = gray
 				
 				LeftMostLeaf()
@@ -60,11 +63,13 @@ Operator++()
 
 	while (!Terminated())
 	{
-		curr = V[idx++]
-		itr (Adj[curr])
+		v = V[idx++]
 
-		if (color[curr] == white)
+		if (color[v] == white)
 		{
+			curr = v 
+			itr = Adj[curr]
+
 			S.Push(curr, itr)
 			color[curr] = gray 
 
@@ -114,10 +119,12 @@ LeftMostLeaf()
 
 		if (color[v] == white)
 		{
-			S.Push(v, itr)
-			color[v] = gray
+			S.Push(curr, itr)
+			
+			curr = v 
+			itr = Adj[curr] //itr va su una nuova lista, se questa non è vuota il while continuerá a essere rieseguito
 
-			(curr, itr) = S.Top()
+			color[v] = gray
 		}
 	}
 }
