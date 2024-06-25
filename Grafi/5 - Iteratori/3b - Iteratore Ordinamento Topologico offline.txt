@@ -1,0 +1,53 @@
+Iteratore offline: elabora tutto il grafo nel costruttore
+Usa la DFS con lo stack per salvare i vertici in ordine
+
+OrdinamentoTopologicoIterator (G)
+{
+    if (V.Size() == 0)
+    {
+        throw exception
+    }
+
+    InitColor (G)
+
+    for (idx = 0; idx < V.Size(); idx++)
+    {
+        v = V[idx]
+        if color[v] == white
+            S = DFS (G, v)
+    }
+}
+
+DFS (G, s)
+{
+    color [s] = gray
+
+    for each v in Adj[s]
+        if color[v] == white 
+            S = DFS (G, v)
+            
+        else if color[v] == gray 
+            throw exception //un grafo ciclico non puó avere ordinamenti topologici
+
+    color [s] = black 
+    S.Push (s)
+    return S
+}
+
+Operator++ ()
+{
+    if (Terminated())
+        throw exception
+    else 
+        S.Pop()
+}
+
+Operator * ()
+{
+    return S.Top()
+}
+
+Terminated ()
+{
+    return S.Empty()
+}

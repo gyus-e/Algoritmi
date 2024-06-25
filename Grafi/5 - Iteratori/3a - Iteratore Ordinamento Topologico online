@@ -1,0 +1,46 @@
+Usa la BFS con il grado entrante
+
+OrdinamentoTopologicoIterator (G)
+{
+    if (V.Size() == 0)
+    {
+        throw exception
+    }
+
+    GetGE (G)
+    
+    for each v in V 
+        if GE[v] == 0
+            Q.Enqueue (v)
+    
+    curr = Q.Head()
+}
+
+Operator++ ()
+{
+    if (Terminated())
+        throw exception 
+    
+    for each v in Adj[curr]
+        GE[v]--
+        if GE[v] == 0 
+        Q.Enqueue (v)
+    
+    Q.Dequeue()
+    curr = Q.Head()
+}
+
+Operator* ()
+{
+    return curr
+}
+
+Terminated ()
+{
+    return Q.Empty() 
+}
+
+GetGE (G)
+    for each u in V 
+        for each v in Adj[u]
+            GE[v]++
