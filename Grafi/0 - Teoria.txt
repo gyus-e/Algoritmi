@@ -48,7 +48,7 @@ L'ordine con cui vengono esplorati i vertici nella DFS genera una foresta di vis
 
 I vertici di una componente connessa (in un grafo non orientato) coincidono con quelli di un albero della foresta depth first
 
-I vertici di una componente fortemente connessa appartengono a uno stesso albero nella foresta depth first (ma un solo albero puó contenere piú componenti fortemente connesse).
+I vertici di una componente fortemente connessa appartengono a uno stesso albero nella foresta depth first (ma un albero puó contenere piú componenti fortemente connesse).
 
 /* ************************************************************************************************ */
 
